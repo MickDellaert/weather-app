@@ -1,4 +1,4 @@
-window.addEventListener("load", () => {
+/*window.addEventListener("load", () => {
     let long;
     let lat;
 
@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
             lat = position.coords.latitude;
         });
 
-    }
+    }*/
 
 const apiKey = "939409706965cabeb39bb19b3d90a4cc";
 const searchInput = document.getElementById("search-field");
@@ -24,33 +24,32 @@ searchBtn.addEventListener("click", () => {
     console.log(cityName);
 
     const getWeather = async () => {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
-        const data = await response.json();
-        console.log(data);
-        console.log(data.main.temp);
-        console.log(data.main.temp_max);
-        console.log(data.main.temp_min);
+        const data1 = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
+        const firstFetch = await data1.json();
 
-        mainTemp.innerHTML = `Current temperature ${data.main.temp}°`;
-        feelsLike.innerHTML = `Feels like ${data.main.feels_like}°`;
-        descriptionNow.innerHTML = `${data.weather[0].description}`;
+        let lon = firstFetch.coord.lon;
+        let lat = firstFetch.coord.lat;
 
-        minTemp.innerHTML = `Min temp ${data.main.temp_min}°`;
-        maxTemp.innerHTML = `Max temp ${data.main.temp_max}°`;
-    }
-    getWeather();
+        const data2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`);
+        const forecast = await data2.json();
+
+        let allData = {...firstFetch,...forecast};
+        console.log(allData);
 
 
-    const forecast = async () => {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric`);
-        const forecast = await response.json();
-        console.log(forecast);
-    }
+        mainTemp.innerHTML = `Current temperature ${allData.main.temp}°`;
+        feelsLike.innerHTML = `Feels like ${allData.main.feels_like}°`;
 
-    forecast();
-});
+        descriptionNow.innerHTML = `${allData.daily[0].weather[0].description}`;
 
-});
+        minTemp.innerHTML = `Min temp ${allData.main.temp_min}°`;
+        maxTemp.innerHTML = `Max temp ${allData.main.temp_max}°`;
+        }
+        getWeather();
+    });
+
+
+
 
 
 
