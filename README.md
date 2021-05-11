@@ -6,6 +6,8 @@ Making a functional weather app:
 * Trying to make it attractive and user-friendly (still need to add styling)
 * Learning how to KISS and keep it more structured
 
+check out the progress here: https://mickdellaert.github.io/weather-app/
+
 
 # The weather application
 
