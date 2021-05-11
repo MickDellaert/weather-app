@@ -1,3 +1,12 @@
+## Personal notes about this project:
+
+Making a functional weather app:
+* Training skills in using fetch API and Async/Await
+* Using JS to manipulate and put elements in DOM
+* Trying to make it attractive and user-friendly (still need to add styling)
+* Learning how to KISS and keep it more structured
+
+
 # The weather application
 
 ## Practical Information
