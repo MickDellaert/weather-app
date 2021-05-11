@@ -25,25 +25,41 @@ searchBtn.addEventListener("click", () => {
 
     const getWeather = async () => {
         const data1 = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
-        const firstFetch = await data1.json();
+        const currentWeather = await data1.json();
 
-        let lon = firstFetch.coord.lon;
-        let lat = firstFetch.coord.lat;
+        let lon = currentWeather.coord.lon;
+        let lat = currentWeather.coord.lat;
 
         const data2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`);
         const forecast = await data2.json();
 
-        let allData = {...firstFetch,...forecast};
-        console.log(allData);
+        let allData = {...currentWeather,...forecast};
 
+        console.log(currentWeather);
+        console.log(forecast);
 
-        mainTemp.innerHTML = `Current temperature ${allData.main.temp}°`;
-        feelsLike.innerHTML = `Feels like ${allData.main.feels_like}°`;
+        mainTemp.innerHTML = `Current temperature ${currentWeather.main.temp}°`;
+        feelsLike.innerHTML = `Feels like ${currentWeather.main.feels_like}°`;
+        descriptionNow.innerHTML = `${currentWeather.weather[0].description}`;
+        minTemp.innerHTML = `Min temp ${currentWeather.main.temp_min}°`;
+        maxTemp.innerHTML = `Max temp ${currentWeather.main.temp_max}°`;
 
-        descriptionNow.innerHTML = `${allData.daily[0].weather[0].description}`;
+        for (let i = 1; i < 7; i++) {
+            console.log(forecast.daily[i].weather[0].description);
+            console.log(forecast.daily[i].temp.day)
+            console.log(forecast.daily[i].temp.max)
+            console.log(forecast.daily[i].temp.min)
+        }
 
-        minTemp.innerHTML = `Min temp ${allData.main.temp_min}°`;
-        maxTemp.innerHTML = `Max temp ${allData.main.temp_max}°`;
+        for (let i = 1; i < 7; i++) {
+            let content = `${allData.daily[i].weather[0].description}`;
+
+            newDiv = document.createElement("div")
+            document.getElementById("forecast-row").appendChild(newDiv);
+            newDiv.className = "col forecast";
+            newDiv.innerText = content;
+
+        }
         }
         getWeather();
     });
