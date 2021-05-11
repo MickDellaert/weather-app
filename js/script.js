@@ -12,10 +12,13 @@
 
     }*/
 
+
+
 const apiKey = "939409706965cabeb39bb19b3d90a4cc";
 const searchInput = document.getElementById("search-field");
 const searchBtn = document.getElementById("search-btn");
 const locationfield = document.getElementById("location-current");
+const date = document.getElementById("date");
 const mainTemp = document.getElementById("main-temp");
 const feelsLike = document.getElementById("feels-like");
 const descriptionNow = document.getElementById("description-now")
@@ -29,6 +32,7 @@ const getWeather = async (cityName, callback) => {
 
     let lon = currentWeather.coord.lon;
     let lat = currentWeather.coord.lat;
+    console.log(lon)
 
     const data2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`);
     const forecast = await data2.json();
@@ -45,33 +49,57 @@ searchBtn.addEventListener("click", () => {
     console.log(cityName);
 
 //Function that gets the weather information via a callback function and puts it in the HTML DOM
-        getWeather(cityName,(currentWeather, forecast) => {
-            locationfield.innerHTML = currentWeather.name;
-            mainTemp.innerHTML = `<p>Current temperature ${forecast.daily[0].temp.day}°</p>`;
-            feelsLike.innerHTML = `Feels like ${forecast.current.feels_like}°`;
-            descriptionNow.innerHTML = `${forecast.current.weather[0].description}`;
-            minTemp.innerHTML = `Min temp ${forecast.daily[0].temp.min}°`;
-            maxTemp.innerHTML = `Max temp ${forecast.daily[0].temp.max}°`;
+    getWeather(cityName, (currentWeather, forecast) => {
+        locationfield.innerHTML = currentWeather.name;
+        date.inner
+        mainTemp.innerHTML = `<p>Current temperature ${forecast.daily[0].temp.day}°</p>`;
+        feelsLike.innerHTML = `Feels like ${forecast.current.feels_like}°`;
+        descriptionNow.innerHTML = `${forecast.current.weather[0].description}`;
+        minTemp.innerHTML = `Min temp ${forecast.daily[0].temp.min}°`;
+        maxTemp.innerHTML = `Max temp ${forecast.daily[0].temp.max}°`;
+        console.log(forecast.current.weather[0].main)
 
-            for (let i = 1; i < 7; i++) {
-                console.log(forecast.daily[i].weather[0].description);
-                console.log(forecast.daily[i].temp.day)
-                console.log(forecast.daily[i].temp.max)
-                console.log(forecast.daily[i].temp.min)
+        for (let i = 1; i < 7; i++) {
+            console.log(forecast.daily[i].weather[0].description);
+            console.log(forecast.daily[i].temp.day)
+            console.log(forecast.daily[i].temp.max)
+            console.log(forecast.daily[i].temp.min)
+        }
+
+        document.getElementById("forecast-row").innerHTML = "";
+
+        for (let i = 1; i < 7; i++) {
+            let content1 = forecast.daily[i].temp.day;
+            let content2 = `<p class="description-forecast">${forecast.daily[i].weather[0].description}</p>`;
+            newDiv = document.createElement("div")
+            document.getElementById("forecast-row").appendChild(newDiv);
+            newDiv.className = "col forecast";
+            newDiv.innerHTML = content1 + content2;
+        }
+
+        function getWeatherId() {
+            if (forecast.current.weather[0].main === "Rain") {
+                document.body.style.backgroundImage = "url('img/light_rain.jpg')";
+                document.body.style.backgroundPosition ="center";
+            } else if (forecast.current.weather[0].main === "Clouds") {
+                document.body.style.backgroundImage = "url('img/clouds.jpg')";
+            } else if (forecast.current.weather[0].main === "Thunderstorm") {
+                document.body.style.backgroundImage = "url('img/clouds.jpg')";
+            } else if (forecast.current.weather[0].main === "Drizzle") {
+                document.body.style.backgroundImage = "url('img/drizzle.jpg')";
+            } else if (forecast.current.weather[0].main === "Snow") {
+                document.body.style.backgroundImage = "url('img/snow.jpg')";
+            } else if (forecast.current.weather[0].main === "Clear") {
+                document.body.style.backgroundImage = "url('img/clear.jpg')";
             }
 
-            document.getElementById("forecast-row").innerHTML = "";
+        }
+        getWeatherId()
 
-            for (let i = 1; i < 7; i++) {
-                let content1 = forecast.daily[i].temp.day;
-                let content2 = `<p class="description-forecast">${forecast.daily[i].weather[0].description}</p>`;
-                newDiv = document.createElement("div")
-                document.getElementById("forecast-row").appendChild(newDiv);
-                newDiv.className = "col forecast";
-                newDiv.innerHTML = content1 + content2;
-            }
-        });
-    });
+    })
+})
+
+
 
 
 

@@ -1,10 +1,14 @@
+body  {
+    color: white;
+}
+
 #main-temp p {
     font-size: 20px;
 }
 
 .forecast {
     margin: 5px;
-    background-color: lavenderblush;
+    background-color: rgba(150, 196, 242, 0.5);
     border-radius: 5px;
     padding: 5px;
 }
