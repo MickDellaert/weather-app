@@ -1,0 +1,11 @@
+#main-temp p {
+    font-size: 20px;
+}
+
+.forecast {
+    margin: 5px;
+    background-color: lavenderblush;
+    border-radius: 5px;
+    padding: 5px;
+}
+
