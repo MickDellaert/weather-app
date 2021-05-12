@@ -11,6 +11,7 @@ Making a functional weather app:
 * Added background images that change according to the current weather type
 * Almost all elements in HTML are created through Javascript
 * App is made responsive with Bootstrap
+* Learned how to add an image to a readme
 
 
 check out the finished weather app here: https://mickdellaert.github.io/weather-app/
