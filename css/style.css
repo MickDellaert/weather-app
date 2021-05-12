@@ -11,6 +11,10 @@ body {
     font-family: 'Noto Sans JP', sans-serif;
 }
 
+#input-row {
+    margin-top: 40px;
+}
+
 #main-temp p {
     font-size: 20px;
     font-family: 'Noto Sans JP', sans-serif;
@@ -18,11 +22,12 @@ body {
 }
 
 .forecast {
-    margin: 5px;
+    margin: 12px;
     background-color: rgba(150, 196, 242, 0.5);
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px;
 }
+
 #current-row {
     font-size: 20px;
     line-height: 20px;
@@ -32,23 +37,34 @@ body {
 
 #current-row p.current-temp {
     font-size: 90px;
-    line-height: 80px;
+    line-height: 100px;
+}
+
+#forecast-row {
+    margin-top:40px;
+}
+
+.daily-min-max {
+    font-size: 24px;
 }
 
 #search-field {
     border: none;
     text-align: center;
     border-radius: 20px;
-    margin: 20px;
+    margin: 10px;
     padding: 5px;
+    width: 170px;
 }
 
 #search-btn {
     border: none;
     text-align: center;
     border-radius: 20px;
-    margin: 20px;
+    margin: 10px;
     padding: 5px;
-    width: 172px;
+    width: 170px;
+    background-color: rgba(150, 196, 242, 0.5);
+    color: white;
 }
 
