@@ -1,43 +1,19 @@
-//Function to get current geolocation, currently not used
-
-/*window.addEventListener("load", () => {
-    let long;
-    let lat;
-
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(position => {
-            long = position.coords.longitude;
-            lat = position.coords.latitude;
-        });
-
-    }*/
-
-
-
 const apiKey = "939409706965cabeb39bb19b3d90a4cc";
 const searchInput = document.getElementById("search-field");
 const searchBtn = document.getElementById("search-btn");
-const locationfield = document.getElementById("location-current");
-const date = document.getElementById("date");
-const mainTemp = document.getElementById("main-temp");
-const feelsLike = document.getElementById("feels-like");
-const descriptionNow = document.getElementById("description-now")
-const minTemp = document.getElementById("temp-min");
-const maxTemp = document.getElementById("temp-max");
 
-//Main function to get data from the openweather api
+//Main function to get data from the openweather api, there are two api being fetched: the first to get the longitude and latitude, because the second fetch call requires these parameters in it's url
 const getWeather = async (cityName, callback) => {
     const data1 = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
     const currentWeather = await data1.json();
 
     let lon = currentWeather.coord.lon;
     let lat = currentWeather.coord.lat;
-    console.log(lon)
 
     const data2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`);
     const forecast = await data2.json();
 
-    console.log(currentWeather);
+    //console.log(currentWeather);
     console.log(forecast);
 
     callback(currentWeather, forecast);
@@ -46,37 +22,38 @@ const getWeather = async (cityName, callback) => {
 //Button that gets the user input and start the function to add information to HTML
 searchBtn.addEventListener("click", () => {
     let cityName = searchInput.value;
-    console.log(cityName);
 
 //Function that gets the weather information via a callback function and puts it in the HTML DOM
     getWeather(cityName, (currentWeather, forecast) => {
-        locationfield.innerHTML = currentWeather.name;
-        date.inner
-        mainTemp.innerHTML = `<p>Current temperature ${forecast.daily[0].temp.day}°</p>`;
-        feelsLike.innerHTML = `Feels like ${forecast.current.feels_like}°`;
-        descriptionNow.innerHTML = `${forecast.current.weather[0].description}`;
-        minTemp.innerHTML = `Min temp ${forecast.daily[0].temp.min}°`;
-        maxTemp.innerHTML = `Max temp ${forecast.daily[0].temp.max}°`;
-        console.log(forecast.current.weather[0].main)
 
-        for (let i = 1; i < 7; i++) {
-            console.log(forecast.daily[i].weather[0].description);
-            console.log(forecast.daily[i].temp.day)
-            console.log(forecast.daily[i].temp.max)
-            console.log(forecast.daily[i].temp.min)
-        }
+        document.getElementById("current-row").innerHTML = "";
+        let location = currentWeather.name;
+        let dateCurrent = forecast.current.dt;
+        let currentTemp = Math.round(forecast.current.temp);
+        let feelsLike = Math.round(forecast.current.feels_like);
+        let currentDescription = forecast.current.weather[0].description;
+        let currentTempMin =  Math.round(forecast.daily[0].temp.min);
+        let currentTempMax = Math.round(forecast.daily[0].temp.max);
+        let newCurrentDiv = document.createElement("div");
+        document.getElementById("current-row").appendChild(newCurrentDiv);
+        newCurrentDiv.className = "col current";
+        newCurrentDiv.innerHTML = `<p class="location">${location}</p>` + `<p class="current-date">${dateCurrent}</p>` + `<p class="current-temp">${currentTemp}°</p>` + `<p class="feels-like">Feels like: ${feelsLike}°</p>` + `<p class="current-description">${currentDescription}</p>`  + `<p class="current-min-max">Min: ${currentTempMin}° / Max: ${currentTempMax}°</p>`;
+        
 
         document.getElementById("forecast-row").innerHTML = "";
 
         for (let i = 1; i < 7; i++) {
-            let content1 = forecast.daily[i].temp.day;
-            let content2 = `<p class="description-forecast">${forecast.daily[i].weather[0].description}</p>`;
-            newDiv = document.createElement("div")
-            document.getElementById("forecast-row").appendChild(newDiv);
-            newDiv.className = "col forecast";
-            newDiv.innerHTML = content1 + content2;
+            let dateForecast = forecast.daily[i].dt;
+            let dailyTempMin = Math.round(forecast.daily[i].temp.min);
+            let dailyTempMax = Math.round(forecast.daily[i].temp.max);
+            let dailyDescription = forecast.daily[i].weather[0].description;
+            let newDailyDiv = document.createElement("div")
+            document.getElementById("forecast-row").appendChild(newDailyDiv);
+            newDailyDiv.className = "col forecast";
+            newDailyDiv.innerHTML = `<p class="description-forecast">${dateForecast}</p>` + `<p class="daily-min-max">${dailyTempMin}° / ${dailyTempMax}°</p>` + `<p class="daily-description">${dailyDescription}</p>`;
         }
 
+//Function to change background image depending on current weather
         function getWeatherId() {
             if (forecast.current.weather[0].main === "Rain") {
                 document.body.style.backgroundImage = "url('img/light_rain.jpg')";
@@ -91,17 +68,31 @@ searchBtn.addEventListener("click", () => {
                 document.body.style.backgroundImage = "url('img/snow.jpg')";
             } else if (forecast.current.weather[0].main === "Clear") {
                 document.body.style.backgroundImage = "url('img/clear.jpg')";
+            } else {
+                document.body.style.backgroundImage = "url('img/default.jpg')";
             }
-
         }
         getWeatherId()
-
     })
 })
 
 
 
 
+
+//Function to get current geolocation, currently not used
+
+/*window.addEventListener("load", () => {
+    let long;
+    let lat;
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(position => {
+            long = position.coords.longitude;
+            lat = position.coords.latitude;
+        });
+
+    }*/
 
 
 

@@ -1,9 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
+
 body {
     color: white;
+    background-image: url("../img/default.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height:100vh;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 #main-temp p {
     font-size: 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: lighter;
 }
 
 .forecast {
@@ -11,5 +22,33 @@ body {
     background-color: rgba(150, 196, 242, 0.5);
     border-radius: 5px;
     padding: 5px;
+}
+#current-row {
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#current-row p.current-temp {
+    font-size: 90px;
+    line-height: 80px;
+}
+
+#search-field {
+    border: none;
+    text-align: center;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 5px;
+}
+
+#search-btn {
+    border: none;
+    text-align: center;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 5px;
+    width: 172px;
 }
 
