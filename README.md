@@ -1,3 +1,5 @@
+![](img/Wheater_app_screenshot.jpg)
+
 ## Personal notes about this project:
 
 Making a functional weather app:
