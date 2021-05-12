@@ -14,17 +14,17 @@ const getWeather = async (cityName, callback) => {
     const data2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${apiKey}&units=metric`);
     const forecast = await data2.json();
 
-    //console.log(currentWeather);
-    console.log(forecast);
-
     callback(currentWeather, forecast);
 }
 
-//Button that gets the user input and start the function to add information to HTML
+//Button that gets the user input and starts the function to add information to HTML
 searchBtn.addEventListener("click", () => {
     let cityName = searchInput.value;
 
 //Function that gets the weather information via a callback function and puts it in the HTML DOM
+//Date is fetched and converted, temperatures are rounded
+//A row with a Bootstrap class is added containing new divs with classes and paragraph tags added to their content
+//With a for loop the forecast data is added in a similar way for the next 6 days
     getWeather(cityName, (currentWeather, forecast) => {
 
         document.getElementById("current-row").innerHTML = "";

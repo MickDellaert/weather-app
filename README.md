@@ -3,10 +3,15 @@
 Making a functional weather app:
 * Training skills in using fetch API and Async/Await
 * Using JS to manipulate and put elements in DOM
-* Trying to make it attractive and user-friendly (still need to add styling)
+* Trying to make it attractive and user-friendly 
 * Learning how to KISS and keep it more structured
 
-check out the progress here: https://mickdellaert.github.io/weather-app/
+* Added background images that change according to the current weather type
+* Almost all elements in HTML are created through Javascript
+* App is made responsive with Bootstrap
+
+
+check out the finished weather app here: https://mickdellaert.github.io/weather-app/
 
 
 # The weather application
