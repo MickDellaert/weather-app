@@ -25,7 +25,8 @@ body {
     margin: 12px;
     background-color: rgba(150, 196, 242, 0.5);
     border-radius: 10px;
-    padding: 5px;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 #current-row {
@@ -38,6 +39,16 @@ body {
 #current-row p.current-temp {
     font-size: 90px;
     line-height: 100px;
+    margin-bottom: 24px;
+}
+
+#current-row p.current-date {
+    margin-bottom: 10px;
+}
+
+#current-row p.location {
+    font-size: 35px;
+    margin-bottom: 22px;
 }
 
 #forecast-row {
