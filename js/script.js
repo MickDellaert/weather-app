@@ -2,6 +2,7 @@ const apiKey = "939409706965cabeb39bb19b3d90a4cc";
 const searchInput = document.getElementById("search-field");
 const searchBtn = document.getElementById("search-btn");
 
+
 //Main function to get data from the openweather api, there are two api being fetched:
 // the first to get the longitude and latitude, because the second fetch call requires these parameters in it's url
 const getWeather = async (cityName, callback) => {
@@ -17,9 +18,11 @@ const getWeather = async (cityName, callback) => {
     callback(currentWeather, forecast);
 }
 
+
 //Button that gets the user input and starts the function to add information to HTML
 searchBtn.addEventListener("click", () => {
     let cityName = searchInput.value;
+
 
 //Function that gets the weather information via a callback function and puts it in the HTML DOM
 //Date is fetched and converted, temperatures are rounded
@@ -28,15 +31,19 @@ searchBtn.addEventListener("click", () => {
     getWeather(cityName, (currentWeather, forecast) => {
 
         document.getElementById("current-row").innerHTML = "";
+
         let location = currentWeather.name;
+
         let dateCurrent = new Date(forecast.current.dt * 1000);
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
         let currentTemp = Math.round(forecast.current.temp);
         let feelsLike = Math.round(forecast.current.feels_like);
         let currentDescription = forecast.current.weather[0].description;
         let currentTempMin = Math.round(forecast.daily[0].temp.min);
         let currentTempMax = Math.round(forecast.daily[0].temp.max);
         let newCurrentDiv = document.createElement("div");
+
         document.getElementById("current-row").appendChild(newCurrentDiv);
         newCurrentDiv.className = "col current";
         newCurrentDiv.innerHTML =
@@ -59,18 +66,18 @@ searchBtn.addEventListener("click", () => {
             let dailyDescription = forecast.daily[i].weather[0].description;
             let newDailyDiv = document.createElement("div")
             document.getElementById("forecast-row").appendChild(newDailyDiv);
-            newDailyDiv.className = "col forecast";
+            newDailyDiv.className = "col-md-3 col-lg forecast";
             newDailyDiv.innerHTML =
                 `<p class="description-forecast">${dateForecast.toLocaleString('en-GB', options)}</p>`
                 + `<p class="daily-min-max">${dailyTempMin}° / ${dailyTempMax}°</p>`
                 + `<p class="daily-description">${dailyDescription}</p>`;
         }
 
+
 //Function to change background image depending on current weather
         function getWeatherId() {
             if (forecast.current.weather[0].main === "Rain") {
                 document.body.style.backgroundImage = "url('img/light_rain.jpg')";
-                document.body.style.backgroundPosition ="center";
             } else if (forecast.current.weather[0].main === "Clouds") {
                 document.body.style.backgroundImage = "url('img/clouds.jpg')";
             } else if (forecast.current.weather[0].main === "Thunderstorm") {
