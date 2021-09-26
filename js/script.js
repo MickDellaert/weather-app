@@ -1,7 +1,7 @@
 const apiKey = "876f71af64d39434b74d05b31a77fc42";
 const searchInput = document.getElementById("search-field");
 const searchBtn = document.getElementById("search-btn");
-const toggle = document.getElementById("flexSwitchCheckChecked");
+const toggle = document.getElementById("btn-check");
 const inputRow = document.getElementById("input-row");
 const content = document.querySelector(".content")
 
@@ -90,7 +90,7 @@ searchBtn.addEventListener("click", () => {
                 + `<p class="daily-description">${dailyDescription}</p>`;
         }
 
-        if (document.getElementById("flexSwitchCheckChecked").checked) {
+        if (document.getElementById("btn-check").checked) {
 
 //Function to change background image depending on current weather
             function getWeatherId() {
