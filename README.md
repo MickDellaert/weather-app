@@ -1,4 +1,4 @@
-![](img/Wheater_app_screenshot.jpg)
+![](img/weather-app-github.png)
 
 ## Personal notes about this project:
 
