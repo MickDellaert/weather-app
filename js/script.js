@@ -3,7 +3,8 @@ const searchInput = document.getElementById("search-field");
 const searchBtn = document.getElementById("search-btn");
 const toggle = document.getElementById("btn-check");
 const inputRow = document.getElementById("input-row");
-const content = document.querySelector(".content")
+const content = document.querySelector(".content");
+const appTitle = document.querySelector(".app-title")
 
 
 //Main function to get data from the openweather api, there are two api being fetched:
@@ -38,6 +39,8 @@ searchBtn.addEventListener("click", () => {
 
     content.classList.remove('viewport');
     let cityName = searchInput.value;
+
+    appTitle.classList.add('hidden');
 
 
 //Function that gets the weather information via a callback function and puts it in the HTML DOM
